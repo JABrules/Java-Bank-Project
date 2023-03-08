@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Banking System</title>
+  </head>
+  <body>
+    <!-- Main Body of Page -->
+    <div class="container">
+        <div class="row m-4">
+            <div class="col text-center border border-dark">
+                <h1>Banking System - Transactions</h1>
+            </div>
+        </div>
+
+        <div class="row m-4 border border-dark">
+            <div class="col text-center m-3">
+                <a href="accounts" class="btn btn-outline-primary btn-lg">Bank Accounts</a>
+            </div>
+            <div class="col text-center m-3">
+                <a href="transactions" class="btn btn-outline-primary btn-lg">Transactions</a>
+            </div>
+        </div>
+
+        <div class="row m-4 border border-dark">
+            <div class="col text-center m-3">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>From Account</th>
+                        <th>To Account</th>
+                        <th>Transfer Amount</th>
+                        <th>Date Transferred</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="transaction : ${transactions}">
+                        <td th:text="${transaction.id}">ID</td>
+                        <td th:text="${transaction.fromBankAccount.accountName}">From Account</td>
+                        <td th:text="${transaction.toBankAccount.accountName}">To Account</td>
+                        <td th:text="${transaction.transferAmount}">Transfer Amount</td>
+                        <td th:text="${transaction.transferDate}">Date Transferred</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row m-4 border border-dark">
+            <div class="col-3 text-center m-3">
+                <span class="h3">Transfer Money</span>
+            </div>
+            <div class="col-7 text-center m-3">
+                <form action="addTransaction" method="POST">
+                    <div class="form-group row">
+                        <label for="fromAccountID" class="col-3 col-form-label">
+                            From Account</label>
+                        <div class="col-9">
+                            <select id="fromAccountID" name="fromAccountID" class="form-control" >
+                                <option th:each="account : ${bankaccounts}"
+                                        th:value="${account.id}"
+                                        th:text="${account.accountName}">
+                                    From Account</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="toAccountID" class="col-3 col-form-label">
+                            To Account</label>
+                        <div class="col-9">
+                            <select id="toAccountID" name="toAccountID" class="form-control" >
+                                <option th:each="account : ${bankaccounts}"
+                                        th:value="${account.id}"
+                                        th:text="${account.accountName}">
+                                    To Account</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="transferAmount" class="col-3 col-form-label">
+                            Transfer Amount</label>
+                        <div class="col-9">
+                            <input type="text" name="transferAmount"
+                                   id="transferAmount" class="form-control"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Transfer Funds</button>
+                </form>
+            </div>
+        </div>
+
+        
+    </div>  
+    <!-- End main body -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>;
